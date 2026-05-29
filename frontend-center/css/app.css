@@ -1,0 +1,75 @@
+.gold-icon {
+  color: #f6c453;
+  font-size: 24px;
+  margin-left: 10px;
+  margin-right: 8px;
+}
+
+.admin-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f6c453;
+  color: #111827;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.login-page {
+  background:
+    radial-gradient(circle at top left, rgba(246,196,83,.35), transparent 32%),
+    linear-gradient(135deg, #111827, #1f2937 55%, #4d3800);
+}
+
+.login-logo {
+  color: #f6c453;
+}
+
+.card,
+.small-box {
+  border-radius: 12px;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.content-wrapper {
+  background: #f4f6f9;
+}
+
+.brand-link {
+  text-decoration: none !important;
+}
+
+.nav-sidebar .nav-link.active {
+  background-color: #f6c453 !important;
+  color: #111827 !important;
+}
+
+.nav-sidebar .nav-link.active i {
+  color: #111827 !important;
+}
+
+.btn-warning {
+  background-color: #f6c453;
+  border-color: #f6c453;
+}
+
+.btn-warning:hover {
+  background-color: #dba82c;
+  border-color: #dba82c;
+}
+
+.section-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge-role {
+  font-size: 12px;
+}

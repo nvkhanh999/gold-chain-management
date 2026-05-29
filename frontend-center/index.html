@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gold Center - Cửa hàng</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/static-center/css/app.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div id="loginPage" class="login-page">
+  <div class="login-box">
+    <div class="login-logo"><b>Gold</b>Center</div>
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Đăng nhập cửa hàng/chi nhánh</p>
+        <form id="loginForm">
+          <div class="input-group mb-3">
+            <input id="email" type="email" class="form-control" value="manager.hn@gold.local" placeholder="Email" required>
+            <div class="input-group-append"><div class="input-group-text"><span class="fas fa-envelope"></span></div></div>
+          </div>
+          <div class="input-group mb-3">
+            <input id="password" type="password" class="form-control" value="123456" placeholder="Mật khẩu" required>
+            <div class="input-group-append"><div class="input-group-text"><span class="fas fa-lock"></span></div></div>
+          </div>
+          <button type="submit" class="btn btn-warning btn-block">Đăng nhập</button>
+          <a href="/admin" class="btn btn-outline-light btn-block mt-2">Sang giao diện tổng chuỗi</a>
+          <div id="loginError" class="text-danger mt-3"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="appPage" class="wrapper d-none">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a></li>
+      <li class="nav-item d-none d-sm-inline-block"><a href="#" class="nav-link nav-route" data-page="dashboard">Cửa hàng</a></li>
+      <li class="nav-item d-none d-sm-inline-block"><a href="/admin" class="nav-link">Tổng chuỗi</a></li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><span id="userInfo" class="nav-link"></span></li>
+      <li class="nav-item"><button id="logoutBtn" class="btn btn-outline-danger btn-sm mt-1 mr-2">Đăng xuất</button></li>
+    </ul>
+  </nav>
+
+  <aside class="main-sidebar sidebar-dark-warning elevation-4">
+    <a href="#" class="brand-link nav-route" data-page="dashboard">
+      <i class="fas fa-store brand-image gold-icon"></i>
+      <span class="brand-text font-weight-light">Gold Center</span>
+    </a>
+    <div class="sidebar">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image"><div class="admin-avatar">C</div></div>
+        <div class="info"><a id="branchName" href="#" class="d-block">Chi nhánh</a></div>
+      </div>
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column">
+          <li class="nav-item"><a href="#" class="nav-link active nav-route" data-page="dashboard"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard cửa hàng</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-route" data-page="customers"><i class="nav-icon fas fa-users"></i><p>Khách hàng</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-route" data-page="products"><i class="nav-icon fas fa-gem"></i><p>Sản phẩm vàng</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-route" data-page="prices"><i class="nav-icon fas fa-coins"></i><p>Bảng giá vàng</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-route" data-page="sales"><i class="nav-icon fas fa-cash-register"></i><p>Bán vàng</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-route" data-page="purchases"><i class="nav-icon fas fa-shopping-cart"></i><p>Mua vàng từ khách</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-route" data-page="onlineOrders"><i class="nav-icon fas fa-globe"></i><p>Đơn online</p></a></li>
+          <li class="nav-item"><a href="#" class="nav-link nav-route" data-page="inventory"><i class="nav-icon fas fa-exchange-alt"></i><p>Biến động kho</p></a></li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <section class="content-header"><div class="container-fluid"><h1 id="pageTitle">Dashboard cửa hàng</h1></div></section>
+    <section class="content"><div class="container-fluid">
+
+      <div id="dashboard" class="page">
+        <div class="row">
+          <div class="col-lg-3 col-6"><div class="small-box bg-info"><div class="inner"><h3 id="statCustomers">0</h3><p>Khách hàng</p></div><div class="icon"><i class="fas fa-users"></i></div></div></div>
+          <div class="col-lg-3 col-6"><div class="small-box bg-warning"><div class="inner"><h3 id="statProducts">0</h3><p>Sản phẩm</p></div><div class="icon"><i class="fas fa-gem"></i></div></div></div>
+          <div class="col-lg-3 col-6"><div class="small-box bg-success"><div class="inner"><h3 id="statSale">0</h3><p>Tổng tiền bán</p></div><div class="icon"><i class="fas fa-cash-register"></i></div></div></div>
+          <div class="col-lg-3 col-6"><div class="small-box bg-danger"><div class="inner"><h3 id="statWeight">0g</h3><p>Trọng lượng tồn</p></div><div class="icon"><i class="fas fa-weight"></i></div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Hướng dẫn nhanh</h3></div>
+          <div class="card-body">
+            <p>Giao diện này chỉ thao tác dữ liệu thuộc chi nhánh đang đăng nhập.</p>
+            <ul>
+              <li>Tạo khách hàng trước khi bán/mua vàng để lưu lịch sử giao dịch.</li>
+              <li>Sản phẩm mới nhập vào sẽ tự động tạo biến động kho IMPORT.</li>
+              <li>Khi bán vàng, tồn kho tự động giảm và ghi biến động SALE.</li>
+              <li>Khi mua vàng từ khách, hệ thống ghi biến động BUY_FROM_CUSTOMER.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="customers" class="page d-none">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Thêm khách hàng</h3></div>
+          <div class="card-body">
+            <form id="customerForm" class="row">
+              <div class="col-md-3"><input name="fullName" class="form-control mb-2" placeholder="Họ tên" required></div>
+              <div class="col-md-3"><input name="phoneNumber" class="form-control mb-2" placeholder="Số điện thoại"></div>
+              <div class="col-md-3"><input name="identityNumber" class="form-control mb-2" placeholder="CCCD/CMND"></div>
+              <div class="col-md-3"><input name="address" class="form-control mb-2" placeholder="Địa chỉ"></div>
+              <div class="col-md-2"><button class="btn btn-warning btn-block">Thêm</button></div>
+            </form>
+          </div>
+        </div>
+        <div class="card"><div class="card-header"><h3 class="card-title">Danh sách khách hàng</h3></div><div class="card-body table-responsive"><table id="customerTable" class="table table-bordered table-striped"></table></div></div>
+      </div>
+
+      <div id="products" class="page d-none">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Thêm sản phẩm vàng tại chi nhánh</h3></div>
+          <div class="card-body">
+            <form id="productForm" class="row">
+              <div class="col-md-3"><input name="sku" class="form-control mb-2" placeholder="SKU/Mã tem" required></div>
+              <div class="col-md-3"><input name="name" class="form-control mb-2" placeholder="Tên sản phẩm" required></div>
+              <div class="col-md-3"><input name="category" class="form-control mb-2" placeholder="Danh mục"></div>
+              <div class="col-md-3"><input name="goldType" class="form-control mb-2" placeholder="Loại vàng" required></div>
+              <div class="col-md-3"><input name="purity" class="form-control mb-2" placeholder="Hàm lượng"></div>
+              <div class="col-md-3"><input name="weightGram" type="number" step="0.001" class="form-control mb-2" placeholder="Trọng lượng gram" required></div>
+              <div class="col-md-3"><input name="quantity" type="number" class="form-control mb-2" value="1" placeholder="Số lượng" required></div>
+              <div class="col-md-3"><input name="makingFee" type="number" class="form-control mb-2" value="0" placeholder="Tiền công"></div>
+              <div class="col-md-3"><input name="stoneFee" type="number" class="form-control mb-2" value="0" placeholder="Tiền đá"></div>
+              <div class="col-md-3"><input name="costPrice" type="number" class="form-control mb-2" value="0" placeholder="Giá vốn"></div>
+              <div class="col-md-3"><input name="note" class="form-control mb-2" placeholder="Ghi chú"></div>
+              <div class="col-md-2"><button class="btn btn-warning btn-block">Thêm</button></div>
+            </form>
+          </div>
+        </div>
+        <div class="card"><div class="card-header"><h3 class="card-title">Sản phẩm của chi nhánh</h3></div><div class="card-body table-responsive"><table id="productTable" class="table table-bordered table-striped"></table></div></div>
+      </div>
+
+      <div id="prices" class="page d-none">
+        <div class="card"><div class="card-header"><h3 class="card-title">Bảng giá vàng đang áp dụng</h3></div><div class="card-body table-responsive"><table id="priceTable" class="table table-bordered table-striped"></table></div></div>
+      </div>
+
+      <div id="sales" class="page d-none">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Tạo hóa đơn bán vàng</h3></div>
+          <div class="card-body">
+            <form id="saleForm" class="row">
+              <div class="col-md-3"><select name="customerID" id="saleCustomerSelect" class="form-control mb-2"></select></div>
+              <div class="col-md-3"><select name="productID" id="saleProductSelect" class="form-control mb-2" required></select></div>
+              <div class="col-md-2"><input name="quantity" type="number" class="form-control mb-2" value="1" placeholder="Số lượng" required></div>
+              <div class="col-md-2"><input name="discount" type="number" class="form-control mb-2" value="0" placeholder="Giảm giá"></div>
+              <div class="col-md-2"><select name="paymentMethod" class="form-control mb-2"><option value="CASH">Tiền mặt</option><option value="BANK_TRANSFER">Chuyển khoản</option><option value="CARD">Thẻ</option></select></div>
+              <div class="col-md-2"><button class="btn btn-warning btn-block">Tạo hóa đơn</button></div>
+            </form>
+          </div>
+        </div>
+        <div class="card"><div class="card-header"><h3 class="card-title">Lịch sử bán vàng của chi nhánh</h3></div><div class="card-body table-responsive"><table id="saleTable" class="table table-bordered table-striped"></table></div></div>
+      </div>
+
+      <div id="purchases" class="page d-none">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Tạo phiếu mua vàng từ khách</h3></div>
+          <div class="card-body">
+            <form id="purchaseForm" class="row">
+              <div class="col-md-3"><select name="customerID" id="purchaseCustomerSelect" class="form-control mb-2"></select></div>
+              <div class="col-md-3"><input name="goldType" class="form-control mb-2" placeholder="Loại vàng" required></div>
+              <div class="col-md-3"><input name="weightGram" type="number" step="0.001" class="form-control mb-2" placeholder="Trọng lượng gram" required></div>
+              <div class="col-md-3"><input name="description" class="form-control mb-2" placeholder="Mô tả"></div>
+              <div class="col-md-3"><select name="paymentMethod" class="form-control mb-2"><option value="CASH">Tiền mặt</option><option value="BANK_TRANSFER">Chuyển khoản</option></select></div>
+              <div class="col-md-2"><button class="btn btn-warning btn-block">Tạo phiếu mua</button></div>
+            </form>
+          </div>
+        </div>
+        <div class="card"><div class="card-header"><h3 class="card-title">Lịch sử mua vàng của chi nhánh</h3></div><div class="card-body table-responsive"><table id="purchaseTable" class="table table-bordered table-striped"></table></div></div>
+      </div>
+
+      <div id="onlineOrders" class="page d-none">
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Đơn hàng online của chi nhánh</h3></div>
+          <div class="card-body">
+            <p class="text-muted">Đơn hàng từ website bán hàng /shop sẽ xuất hiện ở đây. Nhân viên có thể xác nhận, hoàn tất hoặc hủy đơn.</p>
+            <div class="table-responsive"><table id="onlineOrderTable" class="table table-bordered table-striped"></table></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="inventory" class="page d-none">
+        <div class="card"><div class="card-header"><h3 class="card-title">Biến động kho của chi nhánh</h3></div><div class="card-body table-responsive"><table id="inventoryTable" class="table table-bordered table-striped"></table></div></div>
+      </div>
+
+    </div></section>
+  </div>
+
+  <footer class="main-footer"><strong>Gold Center</strong><div class="float-right d-none d-sm-inline-block">Quản lý cửa hàng</div></footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<script src="/static-center/js/app.js"></script>
+</body>
+</html>
